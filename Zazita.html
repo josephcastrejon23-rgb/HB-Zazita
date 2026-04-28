@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Para mi Reina: Zarelly 💓</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0; background: #000; color: #fff;
+            font-family: 'Poppins', sans-serif; overflow-x: hidden;
+        }
+        /* Fondo de estrellas animado */
+        #stars-bg {
+            position: fixed; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #2d0b16 0%, #000 100%);
+            z-index: -1;
+        }
+        .container { max-width: 800px; margin: auto; padding: 50px 20px; text-align: center; }
+        h1 { font-family: 'Dancing Script'; font-size: 5rem; color: #ff4d6d; text-shadow: 0 0 20px #ff4d6d; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 30px; padding: 40px;
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+        }
+        .photo-wall {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px; margin-top: 30px;
+        }
+        .photo-wall img {
+            width: 100%; height: 250px; object-fit: cover;
+            border-radius: 15px; border: 2px solid #ff4d6d;
+            transition: 0.3s;
+        }
+        .photo-wall img:hover { transform: scale(1.05) rotate(2deg); }
+        
+        .petalo {
+            position: fixed; color: #ff4d6d; pointer-events: none;
+            z-index: 100; animation: fall linear forwards;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        
+        .btn-link {
+            display: inline-block; padding: 15px 30px;
+            background: #ff4d6d; color: white; text-decoration: none;
+            border-radius: 50px; font-weight: 600; margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="stars-bg"></div>
+    <div class="container">
+        <h1>¡Feliz Cumpleaños, Zarelly!</h1>
+        <div class="glass-card">
+            <p style="font-size: 1.2rem; line-height: 1.8;">
+                Mi amor, hoy celebro tu vida. Eres la persona que llena mis días de color y alegría. 
+                Quiero que este día sea tan hermoso como tú. Eres una mujer increíble, inteligente y 
+                con un corazón de oro. Gracias por dejarme ser parte de tu historia.
+                <br><br>
+                <strong>¡Te amo muchísimo! ❤️</strong>
+            </p>
+        </div>
+
+        <div class="photo-wall">
+            <img src="tu-foto-1.jpg" alt="Nosotros">
+            <img src="tu-foto-2.jpg" alt="Nosotros">
+            <img src="tu-foto-3.jpg" alt="Nosotros">
+            <img src="tu-foto-4.jpg" alt="Nosotros">
+        </div>
+
+        <a href="mellizas.html" class="btn-link">Ver saludo para Kate y para ti 👯‍♀️</a>
+    </div>
+
+    <script>
+        function createPetal() {
+            const p = document.createElement('div');
+            p.className = 'petalo';
+            p.innerHTML = '🌸';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = Math.random() * 20 + 10 + 'px';
+            p.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 5000);
+        }
+        setInterval(createPetal, 300);
+    </script>
+</body>
+</html>
