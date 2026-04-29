@@ -2,115 +2,103 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Zarelly: Special Edition 💎</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <title>Para mi Zazita 🌹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@1,600&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        :root { --glow: #ff4d6d; --accent: #fccb6e; }
-        body { margin: 0; background: #050505; color: white; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+        :root { --vino: #800020; --rosa: #ffb3c1; --oro: #d4af37; }
+        body { margin: 0; background: #0a0a0a; color: #fff; font-family: 'Montserrat', sans-serif; overflow: hidden; }
 
-        /* INTRO: EL SOBRE TIPO FIFA */
-        #pack-opener {
-            position: fixed; inset: 0; background: radial-gradient(circle, #222 0%, #000 100%);
-            display: flex; justify-content: center; align-items: center; z-index: 5000; transition: 1s;
+        /* --- INTRO ETAPAS --- */
+        #intro-story {
+            position: fixed; inset: 0; background: #000; z-index: 10000;
+            display: flex; justify-content: center; align-items: center; text-align: center;
         }
-        .card-pack {
-            width: 250px; height: 380px; background: linear-gradient(135deg, #ff4d6d, #800020);
-            border-radius: 15px; border: 4px solid gold; cursor: pointer;
-            box-shadow: 0 0 50px rgba(255, 77, 109, 0.5); position: relative;
-            animation: float 3s ease-in-out infinite; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .card-pack:hover { transform: scale(1.1) rotate(2deg); }
-        .card-pack h2 { font-size: 5rem; margin: 0; }
+        .step { display: none; font-family: 'Playfair Display'; font-size: 2.5rem; animation: fadeUp 2s forwards; color: var(--rosa); padding: 20px; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- PAGINA PRINCIPAL --- */
+        #main-page { display: none; background: radial-gradient(circle, #2d0b0b 0%, #0a0a0a 100%); min-height: 100vh; padding-bottom: 50px; overflow-y: auto; }
+        .hero-title { font-family: 'Dancing Script'; font-size: 5rem; color: var(--rosa); margin: 20px 0; }
         
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-
-        /* CONTENIDO PRINCIPAL */
-        #main-content { opacity: 0; transition: 2s; padding: 20px; }
-
-        /* SECCIÓN STATS (TIPO CARTA) */
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-            background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;
-            border: 1px solid var(--glow); margin-top: 20px;
+        /* CARTA PERGAMINO */
+        .pergamino {
+            background: #f4e4bc; color: #2d0b0b; padding: 40px; border-radius: 5px;
+            max-width: 600px; margin: 40px auto; position: relative;
+            box-shadow: 10px 10px 0 var(--vino); font-family: 'Dancing Script'; font-size: 1.4rem;
+            line-height: 1.8; border: 1px solid #d4c49c;
         }
-        .stat { font-size: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.2); padding: 5px; }
 
-        /* GALERÍA 3D */
-        .gallery-container { display: flex; gap: 20px; overflow-x: auto; padding: 20px 0; scrollbar-width: none; }
-        .photo-card {
-            min-width: 280px; height: 400px; background: #111; border-radius: 20px;
-            overflow: hidden; border: 2px solid var(--glow); position: relative;
-        }
-        .photo-card img { width: 100%; height: 100%; object-fit: cover; }
-        .photo-caption { position: absolute; bottom: 0; background: linear-gradient(transparent, black); width: 100%; padding: 20px; }
+        /* MINIJUEGOS SECTION */
+        .game-card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin: 20px; border: 1px solid var(--rosa); }
+        .btn-game { background: var(--vino); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; }
 
-        /* MÚSICA */
-        .music-bar { position: fixed; bottom: 20px; right: 20px; background: var(--glow); padding: 10px 20px; border-radius: 50px; cursor: pointer; }
+        /* MUSICA: COLOCA EL LINK ABAJO DONDE DICE 'SRC' */
+        .music-player { position: fixed; bottom: 20px; left: 20px; z-index: 500; }
     </style>
 </head>
 <body>
 
-    <div id="pack-opener" onclick="revealCard()">
-        <div class="card-pack">
-            <h2>💖</h2>
-            <p>TAP TO OPEN</p>
-        </div>
+    <audio id="bgMusic" loop>
+        <source src="LINK_DE_MON_LAFERTE_AQUÍ.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="intro-story">
+        <div class="step" id="s1">Hoy no es un día cualquiera...</div>
+        <div class="step" id="s2">Hoy cumple años el amor de mi vida... ❤️</div>
+        <div class="step" id="s3">Feliz...</div>
+        <div class="step" id="s4">Cumpleaños...</div>
+        <div class="step" id="s5">Mi Zazita hermosa 🌹</div>
+        <div class="step" id="s6">🎂<br><h1 style="color:white">¡FELIZ CUMPLEAÑOS MI ZAZITAAAA!</h1><br><button onclick="startPage()" class="btn-game">ENTRAR</button></div>
     </div>
 
-    <audio id="hbdMusic" loop><source src="TU_LINK_MUSICA_ROMANTICA.mp3" type="audio/mpeg"></audio>
-
-    <div id="main-content">
+    <div id="main-page">
         <center>
-            <h1 style="font-size: 4rem; color: var(--glow); text-shadow: 0 0 20px var(--glow);">ZARELLY</h1>
-            <p style="letter-spacing: 10px;">ULTIMATE GIRLFRIEND EDITION</p>
+            <h1 class="hero-title">Zarelly</h1>
+            <p style="letter-spacing: 5px;">Eres mi sol en días nublados</p>
+
+            <div class="pergamino">
+                Mi adorada Zazita,<br>
+                En este día quiero decirte que eres lo más hermoso que me ha pasado. Tu sonrisa tiene la fuerza de mil canciones de Mon Laferte. Gracias por cada momento, por tu paciencia y por amarme. Hoy celebro tu vida y deseo que este nuevo año sea tan radiante como tú.<br>
+                Con todo mi amor, José.
+            </div>
+
+            <h2>Álbum Mágico 📸</h2>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; padding:20px;">
+                <img src="foto1.jpg" style="width:200px; height:200px; object-fit:cover; border: 5px solid white;">
+                <img src="foto2.jpg" style="width:200px; height:200px; object-fit:cover; border: 5px solid white;">
+                <img src="foto3.jpg" style="width:200px; height:200px; object-fit:cover; border: 5px solid white;">
+            </div>
+
+            <h2>Diversión para ti 🎮</h2>
+            <div style="display:flex; justify-content:center; flex-wrap:wrap;">
+                <div class="game-card"><h3>Atrapa Corazones</h3><button class="btn-game" onclick="alert('Juego: Mueve el mouse rápido!')">Jugar</button></div>
+                <div class="game-card"><h3>Trivia de Nosotros</h3><button class="btn-game" onclick="alert('¿Dónde fue nuestra 1ra cita?')">Jugar</button></div>
+                <div class="game-card"><h3>Mensaje Secreto</h3><button class="btn-game" onclick="alert('Te amo al infinito')">Revelar</button></div>
+            </div>
+
+            <br><a href="ambas.html" style="color:var(--rosa)">Ir al saludo de las mellizas 👯‍♀️</a>
         </center>
-
-        <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-top: 50px;">
-            <div style="width: 300px; background: #111; padding: 20px; border-radius: 20px; border: 3px solid gold;">
-                <div style="height: 200px; background: url('foto_perfil.jpg') center/cover; border-radius: 10px;"></div>
-                <div class="stats-grid">
-                    <div class="stat">AMOR: 99</div>
-                    <div class="stat">DULZURA: 99</div>
-                    <div class="stat">BRILLO: 99</div>
-                    <div class="stat">BELLEZA: 100</div>
-                </div>
-                <h3 style="text-align: center; color: gold;">SBC COMPLETO ✅</h3>
-            </div>
-
-            <div style="flex: 1; min-width: 300px; max-width: 600px;">
-                <h2 style="color: var(--accent);">Nuestra Historia</h2>
-                <p style="font-size: 1.2rem; line-height: 1.8; color: #ccc;">
-                    Zarelly, hoy no solo celebramos tus 20 años, celebramos la suerte que tengo de caminar a tu lado. Eres mi "Player of the Match" todos los días. Eres increíble, inteligente y la persona que me hace querer ser mejor. 
-                </p>
-                <div style="background: rgba(255,77,109,0.1); padding: 20px; border-radius: 10px; border-left: 5px solid var(--glow);">
-                    "Te amo más de lo que las palabras pueden expresar. Eres mi hoy y todos mis mañanas."
-                </div>
-            </div>
-        </div>
-
-        <h2 style="margin-top: 80px;">Álbum de Recuerdos 📸</h2>
-        <div class="gallery-container">
-            <div class="photo-card"><img src="f1.jpg"><div class="photo-caption">Ese día especial</div></div>
-            <div class="photo-card"><img src="f2.jpg"><div class="photo-caption">Tu sonrisa favorita</div></div>
-            <div class="photo-card"><img src="f3.jpg"><div class="photo-caption">Inolvidable</div></div>
-            <div class="photo-card"><img src="f4.jpg"><div class="photo-caption">Nosotros ❤️</div></div>
-        </div>
     </div>
 
     <script>
-        function revealCard() {
-            const audio = document.getElementById('hbdMusic');
-            audio.play();
-            
-            // Efecto Explosión FIFA
-            confetti({ particleCount: 400, spread: 100, origin: { y: 0.6 }, colors: ['#ff4d6d', '#ffffff', '#fccb6e'] });
-            
-            document.getElementById('pack-opener').style.transform = 'scale(2)';
-            document.getElementById('pack-opener').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('pack-opener').style.display = 'none';
-                document.getElementById('main-content').style.opacity = '1';
-            }, 1000);
+        // Lógica de Intro
+        let currentStep = 1;
+        function showSteps() {
+            if(currentStep > 1) document.getElementById('s'+(currentStep-1)).style.display = 'none';
+            if(currentStep <= 6) {
+                document.getElementById('s'+currentStep).style.display = 'block';
+                setTimeout(() => { 
+                    if(currentStep < 6) { currentStep++; showSteps(); }
+                }, 2500);
+            }
+        }
+        window.onload = showSteps;
+
+        function startPage() {
+            document.getElementById('bgMusic').play();
+            document.getElementById('intro-story').style.display = 'none';
+            document.getElementById('main-page').style.display = 'block';
+            document.body.style.overflowY = "auto";
         }
     </script>
 </body>
