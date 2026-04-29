@@ -3,102 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <title>Para mi Zazita 🌹</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@1,600&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        :root { --vino: #800020; --rosa: #ffb3c1; --oro: #d4af37; }
-        body { margin: 0; background: #0a0a0a; color: #fff; font-family: 'Montserrat', sans-serif; overflow: hidden; }
-
-        /* --- INTRO ETAPAS --- */
-        #intro-story {
-            position: fixed; inset: 0; background: #000; z-index: 10000;
-            display: flex; justify-content: center; align-items: center; text-align: center;
+        :root { --rose: #ff4d6d; --gold: #fccb6e; --wine: #590d22; }
+        body { margin: 0; background: #0a0a0a; color: white; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        
+        /* FONDO DINÁMICO */
+        .bg-animated {
+            position: fixed; inset: 0; z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a, #2d0b16, #1a050a);
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
         }
-        .step { display: none; font-family: 'Playfair Display'; font-size: 2.5rem; animation: fadeUp 2s forwards; color: var(--rosa); padding: 20px; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
 
-        /* --- PAGINA PRINCIPAL --- */
-        #main-page { display: none; background: radial-gradient(circle, #2d0b0b 0%, #0a0a0a 100%); min-height: 100vh; padding-bottom: 50px; overflow-y: auto; }
-        .hero-title { font-family: 'Dancing Script'; font-size: 5rem; color: var(--rosa); margin: 20px 0; }
+        /* INTRO ETAPAS */
+        #intro { position: fixed; inset: 0; background: black; z-index: 10000; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .step { display: none; font-family: 'Dancing Script'; font-size: 3rem; color: var(--rose); animation: zoomIn 1.5s ease; }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+
+        .container { max-width: 1000px; margin: auto; padding: 40px 20px; text-align: center; display: none; }
         
         /* CARTA PERGAMINO */
         .pergamino {
             background: #f4e4bc; color: #2d0b0b; padding: 40px; border-radius: 5px;
-            max-width: 600px; margin: 40px auto; position: relative;
-            box-shadow: 10px 10px 0 var(--vino); font-family: 'Dancing Script'; font-size: 1.4rem;
-            line-height: 1.8; border: 1px solid #d4c49c;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5), inset 0 0 50px rgba(0,0,0,0.1);
+            font-family: 'Dancing Script'; font-size: 1.5rem; line-height: 1.6;
+            border: 2px solid #d4c49c; margin: 40px auto; transform: rotate(-1deg);
         }
 
-        /* MINIJUEGOS SECTION */
-        .game-card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin: 20px; border: 1px solid var(--rosa); }
-        .btn-game { background: var(--vino); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; }
+        /* MURAL FOTOS */
+        .mural-z { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .foto-z { border: 8px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.3); width: 250px; height: 250px; object-fit: cover; transition: 0.4s; }
+        .foto-z:hover { transform: scale(1.05) rotate(2deg); border-color: var(--rose); }
 
-        /* MUSICA: COLOCA EL LINK ABAJO DONDE DICE 'SRC' */
-        .music-player { position: fixed; bottom: 20px; left: 20px; z-index: 500; }
+        /* JUEGOS */
+        .game-box { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 20px; border: 1px solid var(--rose); margin: 20px auto; max-width: 500px; }
+        .btn { background: var(--rose); color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; margin-top: 10px; }
+        #heart-area { height: 150px; position: relative; background: rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden; }
+        .mini-heart { position: absolute; cursor: pointer; font-size: 25px; }
     </style>
 </head>
 <body>
+    <div class="bg-animated"></div>
+    <audio id="music" loop><source src="TU_LINK_DE_MON_LAFERTE.mp3"></audio>
 
-    <audio id="bgMusic" loop>
-        <source src="LINK_DE_MON_LAFERTE_AQUÍ.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="intro-story">
+    <div id="intro">
         <div class="step" id="s1">Hoy no es un día cualquiera...</div>
-        <div class="step" id="s2">Hoy cumple años el amor de mi vida... ❤️</div>
-        <div class="step" id="s3">Feliz...</div>
-        <div class="step" id="s4">Cumpleaños...</div>
-        <div class="step" id="s5">Mi Zazita hermosa 🌹</div>
-        <div class="step" id="s6">🎂<br><h1 style="color:white">¡FELIZ CUMPLEAÑOS MI ZAZITAAAA!</h1><br><button onclick="startPage()" class="btn-game">ENTRAR</button></div>
+        <div class="step" id="s2">Cumple 20 años el amor de mi vida... ❤️</div>
+        <div class="step" id="s3">¡Feliz Cumpleaños, Mi Zazita! 🌹</div>
+        <div class="step" id="s4"><button class="btn" onclick="start()">ENTRAR A TU MUNDO</button></div>
     </div>
 
-    <div id="main-page">
-        <center>
-            <h1 class="hero-title">Zarelly</h1>
-            <p style="letter-spacing: 5px;">Eres mi sol en días nublados</p>
+    <div class="container" id="main">
+        <h1 style="font-family:'Dancing Script'; font-size: 5rem; color:var(--rose);">Zarelly</h1>
+        
+        <div class="pergamino">
+            Mi Zazita hermosa,<br>
+            Hoy llegas a los 20 y no puedo estar más orgulloso de la mujer en la que te has convertido. Eres mi canción favorita de Mon Laferte hecha realidad. Gracias por cada beso y por ser mi compañera. ¡Te amo!
+        </div>
 
-            <div class="pergamino">
-                Mi adorada Zazita,<br>
-                En este día quiero decirte que eres lo más hermoso que me ha pasado. Tu sonrisa tiene la fuerza de mil canciones de Mon Laferte. Gracias por cada momento, por tu paciencia y por amarme. Hoy celebro tu vida y deseo que este nuevo año sea tan radiante como tú.<br>
-                Con todo mi amor, José.
-            </div>
+        <h3>Nuestro Mural ❤️</h3>
+        <div class="mural-z">
+            <img src="z1.jpg" class="foto-z">
+            <img src="z2.jpg" class="foto-z">
+            <img src="z3.jpg" class="foto-z">
+        </div>
 
-            <h2>Álbum Mágico 📸</h2>
-            <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; padding:20px;">
-                <img src="foto1.jpg" style="width:200px; height:200px; object-fit:cover; border: 5px solid white;">
-                <img src="foto2.jpg" style="width:200px; height:200px; object-fit:cover; border: 5px solid white;">
-                <img src="foto3.jpg" style="width:200px; height:200px; object-fit:cover; border: 5px solid white;">
-            </div>
+        <h2 style="margin-top:50px;">Minijuegos para ti 🎮</h2>
+        
+        <div class="game-box">
+            <h4>1. Atrapa mis besos</h4>
+            <p>Puntos: <span id="score">0</span></p>
+            <div id="heart-area"></div>
+            <button class="btn" onclick="gameOne()">Empezar</button>
+        </div>
 
-            <h2>Diversión para ti 🎮</h2>
-            <div style="display:flex; justify-content:center; flex-wrap:wrap;">
-                <div class="game-card"><h3>Atrapa Corazones</h3><button class="btn-game" onclick="alert('Juego: Mueve el mouse rápido!')">Jugar</button></div>
-                <div class="game-card"><h3>Trivia de Nosotros</h3><button class="btn-game" onclick="alert('¿Dónde fue nuestra 1ra cita?')">Jugar</button></div>
-                <div class="game-card"><h3>Mensaje Secreto</h3><button class="btn-game" onclick="alert('Te amo al infinito')">Revelar</button></div>
-            </div>
+        <div class="game-box">
+            <h4>2. ¿Qué canción de Mon Laferte eres?</h4>
+            <button class="btn" onclick="gameTwo()">Descubrir</button>
+            <p id="res-g2"></p>
+        </div>
 
-            <br><a href="ambas.html" style="color:var(--rosa)">Ir al saludo de las mellizas 👯‍♀️</a>
-        </center>
+        <a href="ambas.html" style="color:var(--gold); text-decoration:none;">Ver saludo para Kate y para ti 👯‍♀️</a>
     </div>
 
     <script>
-        // Lógica de Intro
-        let currentStep = 1;
+        let step = 1;
         function showSteps() {
-            if(currentStep > 1) document.getElementById('s'+(currentStep-1)).style.display = 'none';
-            if(currentStep <= 6) {
-                document.getElementById('s'+currentStep).style.display = 'block';
-                setTimeout(() => { 
-                    if(currentStep < 6) { currentStep++; showSteps(); }
-                }, 2500);
-            }
+            if(step > 1) document.getElementById('s'+(step-1)).style.display = 'none';
+            document.getElementById('s'+step).style.display = 'block';
+            if(step < 4) { step++; setTimeout(showSteps, 2500); }
         }
         window.onload = showSteps;
 
-        function startPage() {
-            document.getElementById('bgMusic').play();
-            document.getElementById('intro-story').style.display = 'none';
-            document.getElementById('main-page').style.display = 'block';
-            document.body.style.overflowY = "auto";
+        function start() {
+            document.getElementById('music').play();
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('main').style.display = 'block';
+        }
+
+        // Lógica Juego 1
+        let pts = 0;
+        function gameOne() {
+            const area = document.getElementById('heart-area');
+            area.innerHTML = '';
+            pts = 0; document.getElementById('score').innerText = pts;
+            let timer = setInterval(() => {
+                const h = document.createElement('span');
+                h.className = 'mini-heart'; h.innerHTML = '💋';
+                h.style.left = Math.random() * 90 + '%';
+                h.style.top = Math.random() * 80 + '%';
+                h.onclick = () => { pts++; document.getElementById('score').innerText = pts; h.remove(); };
+                area.appendChild(h);
+                setTimeout(() => h.remove(), 1000);
+            }, 800);
+            setTimeout(() => { clearInterval(timer); alert("¡Atrapaste " + pts + " besos!"); }, 10000);
+        }
+
+        function gameTwo() {
+            const songs = ["Tu falta de querer", "Amárrame", "Mi buen amor", "Amor completo"];
+            document.getElementById('res-g2').innerText = "Hoy eres: " + songs[Math.floor(Math.random()*songs.length)];
         }
     </script>
 </body>
