@@ -7,157 +7,156 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pastel-pink: #ffdae0;
+            --pastel-pink: #ffe5ec; /* Rosa pastel claro */
             --soft-rose: #ff85a1;
-            --cream: #fff5f5;
-            --gold: #d4af37;
+            --cream: #fffafa;
         }
 
-        body {
+        /* RESET TOTAL PARA EVITAR FONDO NEGRO */
+        html, body {
             margin: 0;
             padding: 0;
-            background-color: var(--cream);
+            width: 100%;
+            height: 100%;
+            background-color: var(--pastel-pink) !important; /* Forzamos el color */
             font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
         }
 
-        /* --- INTRO DINÁMICA --- */
+        /* --- INTRO DINÁMICA CON FONDO CLARO --- */
         #intro-overlay {
             position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg, var(--pastel-pink), #ffffff);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, var(--pastel-pink) 100%);
             z-index: 10000;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            transition: opacity 1.5s ease;
+            transition: opacity 1.5s ease-in-out;
         }
 
         .intro-step {
             display: none;
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 8vw, 4rem);
             color: var(--soft-rose);
-            animation: fadeInOut 2.5s ease-in-out forwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+            animation: fadeInOut 2.8s ease-in-out forwards;
             padding: 20px;
         }
 
         @keyframes fadeInOut {
-            0% { opacity: 0; transform: scale(0.9); }
-            20% { opacity: 1; transform: scale(1); }
-            80% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(1.1); }
+            0% { opacity: 0; transform: translateY(20px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
         }
 
-        /* El último paso no desaparece */
         #step-final {
-            animation: fadeIn 1.5s ease-in forwards;
+            animation: fadeIn 1.5s ease-in forwards !important;
+            display: none;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         /* --- CONTENIDO PRINCIPAL --- */
         #main-content {
             display: none;
             opacity: 0;
-            transition: opacity 2s ease;
-            padding: 20px;
+            background-color: var(--cream);
+            min-height: 100vh;
         }
 
         .header-hero {
             background: white;
-            padding: 50px 20px;
+            padding: 60px 20px;
             border-radius: 0 0 50px 50px;
-            box-shadow: 0 10px 30px rgba(255, 133, 161, 0.2);
-            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(255, 133, 161, 0.15);
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 5rem;
+            font-size: clamp(4rem, 12vw, 6rem);
             color: var(--soft-rose);
             margin: 0;
         }
 
-        /* --- CARTA ESTILO PERGAMINO DECORADO --- */
+        /* --- CARTA PERGAMINO DECORADA --- */
         .pergamino-container {
-            max-width: 700px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 10px;
-            border: 2px solid var(--soft-rose);
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            max-width: 650px;
+            margin: 50px auto;
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
         }
 
         .pergamino-inner {
-            background: #fdfaf1;
+            background: #fffdf7;
             padding: 40px;
-            border: 1px dashed var(--soft-rose);
-            border-radius: 10px;
-            color: #444;
-            line-height: 2;
-            font-size: 1.3rem;
+            border: 2px dashed var(--soft-rose);
+            border-radius: 15px;
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.25rem;
             position: relative;
         }
 
-        .pergamino-inner::before, .pergamino-inner::after {
-            content: '🌸';
-            position: absolute;
-            font-size: 2rem;
-        }
-        .pergamino-inner::before { top: 10px; left: 10px; }
-        .pergamino-inner::after { bottom: 10px; right: 10px; }
-
-        /* --- MURAL DE FOTOS DECORADO --- */
+        /* --- MURAL DE FOTOS --- */
         .mural {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
             padding: 40px;
-            max-width: 1100px;
+            max-width: 1000px;
             margin: auto;
         }
 
         .photo-frame {
             background: white;
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
             border: 1px solid var(--pastel-pink);
-            transition: 0.3s;
+            transition: transform 0.3s ease;
         }
 
         .photo-frame:hover {
-            transform: translateY(-10px) rotate(2deg);
+            transform: scale(1.03) rotate(1deg);
             border-color: var(--soft-rose);
         }
 
         .photo-frame img {
             width: 100%;
-            height: 300px;
+            height: 280px;
             object-fit: cover;
             border-radius: 5px;
         }
 
         .btn-entrar {
-            background-color: var(--soft-rose);
+            background: var(--soft-rose);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 30px;
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 133, 161, 0.4);
+            box-shadow: 0 8px 20px rgba(255, 133, 161, 0.3);
             transition: 0.3s;
         }
 
-        .btn-entrar:hover { background-color: #ff4d6d; transform: scale(1.05); }
-
+        .btn-entrar:hover {
+            background: #ff4d6d;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 133, 161, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -174,7 +173,7 @@
         <div class="intro-step" id="step5">Mi Zazita hermosa 🌹</div>
         
         <div class="intro-step" id="step-final">
-            <h2 style="font-size: 4rem; margin-bottom: 20px;">¡FELIZ CUMPLE MI ZAZITAAAA! 🎂</h2>
+            <h2 style="font-size: clamp(2rem, 8vw, 3.5rem); margin-bottom: 30px; color: var(--soft-rose);">¡FELIZ CUMPLE MI ZAZITAAAA! 🎂</h2>
             <button class="btn-entrar" onclick="revelarPagina()">CLIC AQUÍ PARA TU REGALO</button>
         </div>
     </div>
@@ -183,46 +182,47 @@
         <div class="header-hero">
             <center>
                 <h1>Zarelly</h1>
-                <p style="color: #888; letter-spacing: 5px;">20 AÑOS SIENDO ESPECIAL</p>
+                <p style="color: #a0a0a0; letter-spacing: 8px; font-weight: 300;">MIS 20 AÑOS FAVORITOS</p>
             </center>
         </div>
 
         <div class="pergamino-container">
             <div class="pergamino-inner">
-                <center><strong style="font-size: 1.8rem; color: var(--soft-rose);">Para mi Zazita</strong></center>
+                <center><strong style="font-size: 1.8rem; color: var(--soft-rose); font-family: 'Dancing Script';">Para mi adorada Zazita</strong></center>
                 <br>
-                Mi amor, hoy llegas a los 20 años y no puedo estar más feliz de pasarlos a tu lado. Eres una mujer increíble, llena de luz y con una sonrisa que me desarma. Eres mi persona favorita en todo el mundo.
+                Mi amor, hoy celebramos tus 20 años. Es increíble ver cómo creces y cómo cada día te vuelves una mujer más maravillosa. Eres mi luz, mi alegría y la razón por la que siempre tengo una sonrisa.
                 <br><br>
-                Que este día esté lleno de magia, así como tú llenas de magia mis días. Gracias por ser mi novia, mi amiga y mi todo. ¡Te amo al infinito!
+                Espero que este pequeño detalle te haga sentir lo especial que eres para mí. Que este nuevo año de vida venga cargado de sueños cumplidos y muchísimos momentos juntos.
                 <br><br>
-                <center><strong>— Tu José ❤️</strong></center>
+                <center><strong>Te amo con todo mi corazón, <br>— Tu José ❤️</strong></center>
             </div>
         </div>
 
-        <center><h2 style="font-family: 'Dancing Script'; font-size: 3rem; color: var(--soft-rose);">Nuestro Mural de Fotos</h2></center>
+        <center><h2 style="font-family: 'Dancing Script'; font-size: 3.5rem; color: var(--soft-rose); margin-top: 60px;">Nuestro Mural Mágico</h2></center>
         
         <div class="mural">
-            <div class="photo-frame"><img src="z1.jpg"></div>
-            <div class="photo-frame"><img src="z2.jpg"></div>
-            <div class="photo-frame"><img src="z3.jpg"></div>
-            <div class="photo-frame"><img src="z4.jpg"></div>
+            <div class="photo-frame"><img src="z1.jpg" alt="Zarelly 1"></div>
+            <div class="photo-frame"><img src="z2.jpg" alt="Zarelly 2"></div>
+            <div class="photo-frame"><img src="z3.jpg" alt="Zarelly 3"></div>
+            <div class="photo-frame"><img src="z4.jpg" alt="Zarelly 4"></div>
         </div>
 
-        <center>
-            <a href="ambas.html" style="color: var(--soft-rose); text-decoration: none; font-weight: bold; font-size: 1.2rem;">
-                Ir al saludo para Kate y para ti 👯‍♀️
+        <div style="height: 100px;"></div> <center>
+            <a href="ambas.html" style="color: var(--soft-rose); text-decoration: none; font-weight: bold; border-bottom: 2px solid var(--soft-rose); padding-bottom: 5px;">
+                Ver el mural de las mellizas 👯‍♀️
             </a>
         </center>
+        <div style="height: 50px;"></div>
     </div>
 
     <script>
-        // Iniciar audio de suspenso al tocar cualquier parte o al cargar
+        // Iniciar audio de suspenso al primer clic
         window.addEventListener('click', () => {
             const previa = document.getElementById('audio-previa');
-            if (previa.paused) previa.play();
+            if (previa.paused) previa.play().catch(e => console.log("Audio waiting for interaction"));
         }, {once: true});
 
-        // Secuencia de Intro
+        // Control de la Intro
         let currentStep = 1;
         function playIntro() {
             if (currentStep <= 5) {
@@ -232,20 +232,19 @@
                     el.style.display = 'none';
                     currentStep++;
                     playIntro();
-                }, 2800);
+                }, 3000); // 3 segundos por frase
             } else {
                 document.getElementById('step-final').style.display = 'block';
             }
         }
 
-        // Ejecutar intro al cargar
         window.onload = playIntro;
 
-        // Función para entrar a la página
         function revelarPagina() {
-            // Detener suspenso e iniciar Happy Birthday
+            // Cambio de música
             document.getElementById('audio-previa').pause();
-            document.getElementById('audio-cumple').play();
+            const cumple = document.getElementById('audio-cumple');
+            cumple.play();
 
             const intro = document.getElementById('intro-overlay');
             const main = document.getElementById('main-content');
