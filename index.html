@@ -102,16 +102,17 @@
 <body>
 
     <!-- Audios con IDs simplificados para evitar errores de lectura -->
-    <audio id="audio-previa" src="Feliz Cumple - (Remix) - Dj Agu Gomez - Dj Agu Gomez.mp3" preload="auto"></audio>
-    <audio id="audio-cumple" src="Happy Birthday to You (Original Version) - The World's Birthday Club.mp3" loop></audio>
+    <audio id="audio-previa" src="Intro.mp3" preload="auto"></audio>
+    <audio id="audio-cumple" src="HB.mp3" loop></audio>
 
     <!-- INTRO ETAPAS -->
     <div id="intro-overlay">
         <div class="step" id="s1">5 DE MAYO...</div>
         <div class="step" id="s2">HOY NO ES UN DÍA CUALQUIERA...</div>
         <div class="step" id="s3">HOY CUMPLE AÑOS EL AMOR DE MI VIDA... ❤️</div>
-        <div class="step" id="s4">FELIZ... CUMPLEAÑOS...</div>
-        <div class="step" id="s5">MI AMOOR🌹</div>
+        <div class="step" id="s4">FELIZ...</div>
+        <div class="step" id="s5">CUMPLEAÑOS...</div>
+        <div class="step" id="s6">MI AMOOR🌹</div>
         
         <div id="final-btn-container">
             <h1 style="color: var(--s-rose); font-family: 'Dancing Script'; font-size: 4rem; margin-bottom: 20px;">FELIZ CUMPLEAÑOS MI ZAZITA PRECIOSA 🎂💖</h1>
@@ -130,7 +131,7 @@
     <div id="main-content">
         <div class="header">
             <h1>Zarelly</h1>
-            <p style="letter-spacing: 8px; color: #bbb;">MIS 20 AÑOS FAVORITOS</p>
+            <p style="letter-spacing: 8px; color: #bbb;">TUS 20 AÑITOS</p>
         </div>
 
         <div class="pergamino">
@@ -242,7 +243,8 @@
             for(let i=1; i<=20; i++) {
                 const div = document.createElement('div');
                 div.className = 'photo';
-                div.innerHTML = `<img src="z${i}.jpg" alt="Foto ${i}">`;
+                div.innerHTML = `<img src="WhatsApp Image 2026-04-29 at 11.13.36 AM.jpeg" alt="Foto ${i}">`;
+                div.innerHTML = `<img src="WhatsApp Image 2026-04-29 at 11.13.36 AM.jpeg" alt="Foto ${i}">`;
                 container.appendChild(div);
             }
         }
