@@ -101,7 +101,7 @@
 </head>
 <body>
 
-    <!-- Audios con IDs simplificados para evitar errores de lectura -->
+    <!-- Audios con IDs simplificados -->
     <audio id="audio-previa" src="Intro.mp3" preload="auto"></audio>
     <audio id="audio-cumple" src="HB.mp3" loop></audio>
 
@@ -170,6 +170,15 @@
     </div>
 
     <script>
+        // --- LÓGICA DE AUDIO REFORZADA ---
+        function activarMusica() {
+            const audioPrev = document.getElementById('audio-previa');
+            if (audioPrev.paused) {
+                audioPrev.play().catch(e => console.log("Esperando clic para sonar..."));
+            }
+        }
+        window.addEventListener('click', activarMusica, {once: true});
+
         // --- LÓGICA DE INTRO Y SECUENCIA ---
         let currentStep = 1;
         function playSequence() {
@@ -195,16 +204,9 @@
             generateMural();
         };
 
-        // Activar audio de intro al primer clic del usuario (requerido por navegadores)
-        window.addEventListener('click', () => {
-            const audioPrev = document.getElementById('audio-previa');
-            if (audioPrev.paused) {
-                audioPrev.play().catch(e => console.log("Audio esperando interacción"));
-            }
-        }, {once: true});
-
         // --- TRANSICIÓN AL REGALO ---
         function showGift() {
+            activarMusica();
             document.getElementById('intro-overlay').style.display = 'none';
             document.getElementById('gift-scene').style.display = 'flex';
         }
@@ -214,7 +216,6 @@
             const gift = document.getElementById('gift');
             gift.classList.add('explode');
             
-            // Confeti explosivo
             confetti({ 
                 particleCount: 400, 
                 spread: 100, 
@@ -222,29 +223,26 @@
             });
 
             setTimeout(() => {
-                // Cambio de música
                 document.getElementById('audio-previa').pause();
                 document.getElementById('audio-cumple').play();
                 
-                // Cambio de vista
                 document.getElementById('gift-scene').style.display = 'none';
                 const main = document.getElementById('main-content');
                 main.style.display = 'block';
                 
-                // Efecto de aparición suave
                 setTimeout(() => { main.style.opacity = '1'; }, 100);
                 startFloatingPhrases();
             }, 1000);
         }
 
-        // --- GENERADOR DE MURAL (20 FOTOS) ---
+        // --- GENERADOR DE MURAL CORREGIDO (20 FOTOS DISTINTAS) ---
         function generateMural() {
             const container = document.getElementById('mural-fotos');
+            container.innerHTML = ''; 
             for(let i=1; i<=20; i++) {
                 const div = document.createElement('div');
                 div.className = 'photo';
-                div.innerHTML = `<img src="WhatsApp Image 2026-04-29 at 11.13.36 AM.jpeg" alt="Foto ${i}">`;
-                div.innerHTML = `<img src="WhatsApp Image 2026-04-29 at 11.13.36 AM.jpeg" alt="Foto ${i}">`;
+                div.innerHTML = `<img src="z${i}.jpg" alt="Foto ${i}">`;
                 container.appendChild(div);
             }
         }
