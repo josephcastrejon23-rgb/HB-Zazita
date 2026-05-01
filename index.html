@@ -21,6 +21,12 @@
             overflow-x: hidden;
         }
 
+        /* PANTALLA DE INICIO PARA DESBLOQUEAR AUDIO */
+        #bloqueo-inicial { 
+            position: fixed; inset: 0; background: white; z-index: 50000; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+        }
+
         /* --- ANIMACIÓN DE PÉTALOS --- */
         .petal { position: fixed; top: -50px; z-index: 9999; pointer-events: none; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
@@ -29,7 +35,7 @@
         #intro-overlay { 
             position: fixed; inset: 0; 
             background: linear-gradient(135deg, #ffffff, var(--p-pink)); 
-            z-index: 10000; display: flex; align-items: center; justify-content: center; text-align: center; 
+            z-index: 10000; display: none; align-items: center; justify-content: center; text-align: center; 
         }
         .step { 
             display: none; font-family: 'Dancing Script'; font-size: clamp(2rem, 8vw, 4rem); 
@@ -67,7 +73,7 @@
             font-family: 'Dancing Script'; font-size: 1.5rem; line-height: 1.8; color: #555;
         }
 
-        /* --- MURAL 20 FOTOS (ESTÁTICO) --- */
+        /* --- MURAL 20 FOTOS --- */
         .mural { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
             gap: 20px; padding: 40px; max-width: 1200px; margin: auto; 
@@ -84,6 +90,7 @@
             background: var(--s-rose); color: white; border: none; padding: 15px 40px; 
             border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; 
             font-size: 1.2rem; box-shadow: 0 5px 15px rgba(255, 133, 161, 0.3);
+            margin: 10px;
         }
         .btn:hover { background: #ff4d6d; transform: translateY(-3px); }
 
@@ -101,7 +108,14 @@
 </head>
 <body>
 
-    <!-- Audios con forzado de tipo para evitar que GitHub lo tome como imagen -->
+    <!-- BOTÓN DE INICIO MAESTRO (SOLUCIÓN AL AUDIO) -->
+    <div id="bloqueo-inicial">
+        <h1 style="color: var(--s-rose); font-family: 'Dancing Script'; font-size: 3rem;">¿Lista para tu sorpresa?</h1>
+        <p>Haz clic para comenzar la experiencia con música</p>
+        <button class="btn" onclick="desbloquearTodo()">EMPEZAR AQUÍ ❤️</button>
+    </div>
+
+    <!-- Audios -->
     <audio id="audio-previa" preload="auto">
         <source src="./JVKE - pretty (lyric video).mp3" type="audio/mpeg">
     </audio>
@@ -174,7 +188,7 @@
             <h2 style="font-family:'Dancing Script'; color: var(--s-rose); font-size: 3rem;">¡Vamos a jugar! 🎮</h2>
             
             <div class="game-card">
-                <h3>Atrapa mis Besos 💋</h3>
+                <h3>Atrapa las Tortas 🎂</h3>
                 <p>Puntos: <span id="score">0</span></p>
                 <div id="game-canvas" style="height:200px; background:#fff; border-radius:10px; position:relative; overflow:hidden; border:1px solid #eee;"></div>
                 <br>
@@ -197,24 +211,22 @@
         const audioPrev = document.getElementById('audio-previa');
         const audioHB = document.getElementById('audio-cumple');
 
-        // Función corregida para forzar la activación de audio
-        function iniciarExperiencia() {
-            // Desbloqueo de audio insistente para navegadores móviles y GitHub
-            audioPrev.play().then(() => {
-                console.log("Intro iniciada");
-            }).catch(e => {
-                console.log("Error de audio reintentando:", e);
-                audioPrev.play();
-            });
-
-            // "Despertamos" el segundo audio en silencio para ganar el permiso del navegador
+        // NUEVA FUNCIÓN: Se activa con el primer botón de la página
+        function desbloquearTodo() {
+            document.getElementById('bloqueo-inicial').style.display = 'none';
+            document.getElementById('intro-overlay').style.display = 'flex';
+            
+            // Forzar inicio de audio con permiso del usuario
+            audioPrev.play().catch(e => console.log("Audio standby"));
+            
+            // Pre-activar el audio de cumple en silencio
             audioHB.play().then(() => {
                 audioHB.pause();
                 audioHB.currentTime = 0;
             }).catch(() => {});
             
-            document.getElementById('intro-overlay').style.display = 'none';
-            document.getElementById('gift-scene').style.display = 'flex';
+            // Iniciar la secuencia de textos
+            playSequence();
         }
 
         // --- LÓGICA DE INTRO ---
@@ -235,8 +247,13 @@
             }
         }
 
+        // Función para el botón dentro de la intro
+        function iniciarExperiencia() {
+            document.getElementById('intro-overlay').style.display = 'none';
+            document.getElementById('gift-scene').style.display = 'flex';
+        }
+
         window.onload = () => {
-            playSequence();
             createPetals();
         };
 
@@ -305,7 +322,7 @@
             
             setTimeout(() => { 
                 clearInterval(gameTime); 
-                alert("¡Atrapaste " + pts + " besos!"); 
+                alert("¡Felicidades mi amor! Atrapaste " + pts + " tortas de cumple."); 
             }, 10000);
         }
     </script>
