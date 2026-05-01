@@ -67,7 +67,7 @@
             font-family: 'Dancing Script'; font-size: 1.5rem; line-height: 1.8; color: #555;
         }
 
-        /* --- MURAL 20 FOTOS --- */
+        /* --- MURAL 20 FOTOS (ESTÁTICO) --- */
         .mural { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
             gap: 20px; padding: 40px; max-width: 1200px; margin: auto; 
@@ -101,9 +101,9 @@
 </head>
 <body>
 
-    <!-- Audios con IDs simplificados -->
-    <audio id="audio-previa" src="Intro.mp3" preload="auto"></audio>
-    <audio id="audio-cumple" src="HB.mp3" loop></audio>
+    <!-- Audios (Rutas relativas para GitHub) -->
+    <audio id="audio-previa" src="./Intro.mp3" preload="auto"></audio>
+    <audio id="audio-cumple" src="./HB.mp3" loop preload="auto"></audio>
 
     <!-- INTRO ETAPAS -->
     <div id="intro-overlay">
@@ -116,11 +116,11 @@
         
         <div id="final-btn-container">
             <h1 style="color: var(--s-rose); font-family: 'Dancing Script'; font-size: 4rem; margin-bottom: 20px;">FELIZ CUMPLEAÑOS MI ZAZITA PRECIOSA 🎂💖</h1>
-            <button class="btn" onclick="showGift()">DALE CLICK AQUÍ MI AMOR</button>
+            <button class="btn" onclick="iniciarExperiencia()">DALE CLICK AQUÍ MI AMOR</button>
         </div>
     </div>
 
-    <!-- ESCENA DEL REGALO (TRANSICIÓN) -->
+    <!-- ESCENA DEL REGALO -->
     <div id="gift-scene">
         <h2 style="color: var(--s-rose); margin-bottom: 20px;">¡UN REGALO PARA TI!</h2>
         <div class="gift-box" id="gift" onclick="explodeGift()">🎁</div>
@@ -142,8 +142,29 @@
         </div>
 
         <center><h2 style="font-family:'Dancing Script'; color: var(--s-rose); font-size: 3.5rem;">Nuestro Mural Mágico</h2></center>
+        
+        <!-- REEMPLAZA LOS NOMBRES DE LAS FOTOS AQUÍ ABAJO -->
         <div class="mural" id="mural-fotos">
-            <!-- JS generará las 20 fotos aquí -->
+            <div class="photo"><img src="./z1.jpg"></div>
+            <div class="photo"><img src="./z2.jpg"></div>
+            <div class="photo"><img src="./z3.jpg"></div>
+            <div class="photo"><img src="./z4.jpg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.13.36 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.13.22 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.09.14 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.13.13 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.09.08 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.09.11 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.09.07 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.08.58 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.06.55 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.06.54 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.06.54 AM (1).jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.06.52 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.06.50 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.06.48 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.06.45 AM.jpeg"></div>
+            <div class="photo"><img src="./WhatsApp Image 2026-04-29 at 11.02.27 AM (1).jpeg"></div>
         </div>
 
         <div class="game-section">
@@ -170,16 +191,19 @@
     </div>
 
     <script>
-        // --- LÓGICA DE AUDIO REFORZADA ---
-        function activarMusica() {
-            const audioPrev = document.getElementById('audio-previa');
-            if (audioPrev.paused) {
-                audioPrev.play().catch(e => console.log("Esperando clic para sonar..."));
-            }
-        }
-        window.addEventListener('click', activarMusica, {once: true});
+        const audioPrev = document.getElementById('audio-previa');
+        const audioHB = document.getElementById('audio-cumple');
 
-        // --- LÓGICA DE INTRO Y SECUENCIA ---
+        // Función para asegurar que el audio suene (interacción obligatoria)
+        function iniciarExperiencia() {
+            // Desbloqueo de audio para navegadores móviles y GitHub
+            audioPrev.play().catch(e => console.log("Error de audio:", e));
+            
+            document.getElementById('intro-overlay').style.display = 'none';
+            document.getElementById('gift-scene').style.display = 'flex';
+        }
+
+        // --- LÓGICA DE INTRO ---
         let currentStep = 1;
         function playSequence() {
             if (currentStep <= 6) {
@@ -197,54 +221,28 @@
             }
         }
 
-        // --- INICIO DE PÁGINA ---
         window.onload = () => {
             playSequence();
             createPetals();
-            generateMural();
         };
 
-        // --- TRANSICIÓN AL REGALO ---
-        function showGift() {
-            activarMusica();
-            document.getElementById('intro-overlay').style.display = 'none';
-            document.getElementById('gift-scene').style.display = 'flex';
-        }
-
-        // --- EXPLOSIÓN Y REVELACIÓN DEL CONTENIDO ---
+        // --- EXPLOSIÓN ---
         function explodeGift() {
             const gift = document.getElementById('gift');
             gift.classList.add('explode');
             
-            confetti({ 
-                particleCount: 400, 
-                spread: 100, 
-                origin: { y: 0.6 } 
-            });
+            confetti({ particleCount: 400, spread: 100, origin: { y: 0.6 } });
 
             setTimeout(() => {
-                document.getElementById('audio-previa').pause();
-                document.getElementById('audio-cumple').play();
+                audioPrev.pause();
+                audioHB.play().catch(e => console.log("Error HB:", e));
                 
                 document.getElementById('gift-scene').style.display = 'none';
                 const main = document.getElementById('main-content');
                 main.style.display = 'block';
-                
                 setTimeout(() => { main.style.opacity = '1'; }, 100);
                 startFloatingPhrases();
             }, 1000);
-        }
-
-        // --- GENERADOR DE MURAL CORREGIDO (20 FOTOS DISTINTAS) ---
-        function generateMural() {
-            const container = document.getElementById('mural-fotos');
-            container.innerHTML = ''; 
-            for(let i=1; i<=20; i++) {
-                const div = document.createElement('div');
-                div.className = 'photo';
-                div.innerHTML = `<img src="z${i}.jpg" alt="Foto ${i}">`;
-                container.appendChild(div);
-            }
         }
 
         // --- LLUVIA DE PÉTALOS ---
@@ -275,7 +273,7 @@
             }, 2500);
         }
 
-        // --- JUEGO: ATRAPA BESOS ---
+        // --- JUEGO ---
         let pts = 0;
         function startHearts() {
             const canvas = document.getElementById('game-canvas');
@@ -293,7 +291,7 @@
             
             setTimeout(() => { 
                 clearInterval(gameTime); 
-                alert("¡Atrapaste " + pts + " besos! Eres la mejor atrapando mi amor."); 
+                alert("¡Atrapaste " + pts + " besos!"); 
             }, 10000);
         }
     </script>
