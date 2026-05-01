@@ -101,20 +101,16 @@
 </head>
 <body>
 
-    <!-- 1. AUDIO DE SUSPENSO (INTRO) -->
-    <audio id="Feliz Cumple - (Remix) - Dj Agu Gomez - Dj Agu Gomez.mp3
-" src="Feliz Cumple - (Remix) - Dj Agu Gomez - Dj Agu Gomez.mp3
-" preload="auto"></audio>
-    <!-- 2. AUDIO HAPPY BIRTHDAY (PAGINA) -->
-    <audio id="Happy Birthday to You (Original Version) - The World's Birthday Club.mp3" src="Happy Birthday to You (Original Version) - The World's Birthday Club.mp3" loop></audio>
+    <!-- Audios con IDs simplificados para evitar errores de lectura -->
+    <audio id="audio-previa" src="Feliz Cumple - (Remix) - Dj Agu Gomez - Dj Agu Gomez.mp3" preload="auto"></audio>
+    <audio id="audio-cumple" src="Happy Birthday to You (Original Version) - The World's Birthday Club.mp3" loop></audio>
 
     <!-- INTRO ETAPAS -->
     <div id="intro-overlay">
         <div class="step" id="s1">5 DE MAYO...</div>
-        <div class="step" id="s1">HOY NO ES UN DÍA CUALQUIERA...</div>
-        <div class="step" id="s2">HOY CUMPLE AÑOS EL AMOR DE MI VIDA... ❤️</div>
-        <div class="step" id="s3">FELIZ...</div>
-        <div class="step" id="s4">CUMPLEAÑOS...</div>
+        <div class="step" id="s2">HOY NO ES UN DÍA CUALQUIERA...</div>
+        <div class="step" id="s3">HOY CUMPLE AÑOS EL AMOR DE MI VIDA... ❤️</div>
+        <div class="step" id="s4">FELIZ... CUMPLEAÑOS...</div>
         <div class="step" id="s5">MI AMOOR🌹</div>
         
         <div id="final-btn-container">
@@ -139,7 +135,7 @@
 
         <div class="pergamino">
             <center><strong>Para mi Zazita Preciosa,</strong></center><br>
-            Mi amor, hoy no es un día cualquiera, hoy cumples 20 años, mi corazón explota de felicidad por estar a tu lado, por haberte conocido. Eres la mejor mi amor, maravillosa, talentosa y dulce mi niña, gracias por exisitir, un día como hoy, estoy realmente feliz de haber coincidido y conocer la valiosa persona que eres, ayudas siempre a mejorar y tienes un corazón que no te cabe en el pecho. Agradezco tanto conocerte y compartir contigo, eres la mejor novia, siempre te preocupas por como este y aunque a veces eres renegona siempre terminamos bien con mucho amor; eres la mejor hermana, siempre preocupandote por tus hermanitas, asumiendo el rol de hermana mayor, preocupandote por ellas y su bienestar, siempre cuidandolas y dando toddo por ellas; eres la mejor hija porque siempre te preocupas por tus papis, y los ayudas cuando más lo necesitan, siempre procupandote por ellos y esforzandote; la mejor amiga, porque además de mi novia, eres mi mejor amiga y puedo ver en tus amigos el aprecio que te tienen y como te valoran por quien eres y por tu gran corazón. Te amo mucho, estoy tan orgulloso d eti cariño, hoy cumples 20 añitos, pásala muy bonito amorchito, estoy muy feliz y a por muchos añitoos más amorchito. <br><br>
+            Mi amor, hoy no es un día cualquiera, hoy cumples 20 años, mi corazón explota de felicidad por estar a tu lado, por haberte conocido. Eres la mejor mi amor, maravillosa, talentosa y dulce mi niña, gracias por exisitir, un día como hoy, estoy realmente feliz de haber coincido y conocer la valiosa persona que eres, ayudas siempre a mejorar y tienes un corazón que no te cabe en el pecho. Agradezco tanto conocerte y compartir contigo, eres la mejor novia, siempre te preocupas por como este y aunque a veces eres renegona siempre terminamos bien con mucho amor; eres la mejor hermana, siempre preocupandote por tus hermanitas, asumiendo el rol de hermana mayor, preocupandote por ellas y su bienestar, siempre cuidandolas y dando toddo por ellas; eres la mejor hija porque siempre te preocupas por tus papis, y los ayudas cuando más lo necesitan, siempre procupandote por ellos y esforzandote; la mejor amiga, porque además de mi novia, eres mi mejor amiga y puedo ver en tus amigos el aprecio que te tienen y como te valoran por quien eres y por tu gran corazón. Te amo mucho, estoy tan orgulloso d eti cariño, hoy cumples 20 añitos, pásala muy bonito amorchito, estoy muy feliz y a por muchos añitoos más amorchito. <br><br>
             Te amo mucho mucho muchote al infinito y más allá por siempre y para siempre mi Zazita preciosa. ¡FELIZ CUMPLE MI AMOOOR 💖🎂! <br><br>
             <center><strong>— José :3 ❤️</strong></center>
         </div>
@@ -178,12 +174,14 @@
         function playSequence() {
             if (currentStep <= 5) {
                 const el = document.getElementById('s' + currentStep);
-                el.style.display = 'block';
-                setTimeout(() => {
-                    el.style.display = 'none';
-                    currentStep++;
-                    playSequence();
-                }, 3000);
+                if(el) {
+                    el.style.display = 'block';
+                    setTimeout(() => {
+                        el.style.display = 'none';
+                        currentStep++;
+                        playSequence();
+                    }, 3000);
+                }
             } else {
                 document.getElementById('final-btn-container').style.display = 'block';
             }
@@ -196,28 +194,43 @@
             generateMural();
         };
 
-        // Audio al primer clic
+        // Activar audio de intro al primer clic del usuario (requerido por navegadores)
         window.addEventListener('click', () => {
-            document.getElementById('audio-previa').play().catch(() => {});
+            const audioPrev = document.getElementById('audio-previa');
+            if (audioPrev.paused) {
+                audioPrev.play().catch(e => console.log("Audio esperando interacción"));
+            }
         }, {once: true});
 
-        // --- TRANSICIÓN EXPLOSIVA ---
+        // --- TRANSICIÓN AL REGALO ---
         function showGift() {
             document.getElementById('intro-overlay').style.display = 'none';
             document.getElementById('gift-scene').style.display = 'flex';
         }
 
+        // --- EXPLOSIÓN Y REVELACIÓN DEL CONTENIDO ---
         function explodeGift() {
             const gift = document.getElementById('gift');
             gift.classList.add('explode');
-            confetti({ particleCount: 400, spread: 100, origin: { y: 0.6 } });
+            
+            // Confeti explosivo
+            confetti({ 
+                particleCount: 400, 
+                spread: 100, 
+                origin: { y: 0.6 } 
+            });
 
             setTimeout(() => {
+                // Cambio de música
                 document.getElementById('audio-previa').pause();
                 document.getElementById('audio-cumple').play();
+                
+                // Cambio de vista
                 document.getElementById('gift-scene').style.display = 'none';
                 const main = document.getElementById('main-content');
                 main.style.display = 'block';
+                
+                // Efecto de aparición suave
                 setTimeout(() => { main.style.opacity = '1'; }, 100);
                 startFloatingPhrases();
             }, 1000);
@@ -234,7 +247,7 @@
             }
         }
 
-        // --- LLUVIA DE PÉTALOS Y FRASES ---
+        // --- LLUVIA DE PÉTALOS ---
         function createPetals() {
             setInterval(() => {
                 const p = document.createElement('div');
@@ -248,6 +261,7 @@
             }, 300);
         }
 
+        // --- FRASES FLOTANTES ---
         function startFloatingPhrases() {
             const phrases = ["Te amo mucho", "Gracias por existir", "Eres mi todo", "Feliz cumple mi amor", "Eres la mejor", "Mi persona favorita", "Zazita hermosa", "Te adoro", "Eres magia", "Siempre juntos"];
             setInterval(() => {
@@ -266,6 +280,8 @@
         function startHearts() {
             const canvas = document.getElementById('game-canvas');
             canvas.innerHTML = ''; pts = 0;
+            document.getElementById('score').innerText = pts;
+            
             let gameTime = setInterval(() => {
                 const kiss = document.createElement('span');
                 kiss.innerHTML = '💋'; kiss.style.position = 'absolute'; kiss.style.cursor = 'pointer'; kiss.style.fontSize = '2rem';
@@ -274,7 +290,11 @@
                 canvas.appendChild(kiss);
                 setTimeout(() => kiss.remove(), 800);
             }, 600);
-            setTimeout(() => { clearInterval(gameTime); alert("¡Atrapaste " + pts + " besos! Eres la mejor atrapando mi amor."); }, 10000);
+            
+            setTimeout(() => { 
+                clearInterval(gameTime); 
+                alert("¡Atrapaste " + pts + " besos! Eres la mejor atrapando mi amor."); 
+            }, 10000);
         }
     </script>
 </body>
