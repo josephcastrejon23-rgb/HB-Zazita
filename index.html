@@ -101,9 +101,13 @@
 </head>
 <body>
 
-    <!-- Audios (Rutas relativas para GitHub) -->
-    <audio id="audio-previa" src="./Intro.mp3" preload="auto"></audio>
-    <audio id="audio-cumple" src="./HB.mp3" loop preload="auto"></audio>
+    <!-- Audios con forzado de tipo para evitar que GitHub lo tome como imagen -->
+    <audio id="audio-previa" preload="auto">
+        <source src="./Intro.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-cumple" loop preload="auto">
+        <source src="./HB.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- INTRO ETAPAS -->
     <div id="intro-overlay">
@@ -143,7 +147,6 @@
 
         <center><h2 style="font-family:'Dancing Script'; color: var(--s-rose); font-size: 3.5rem;">Nuestro Mural Mágico</h2></center>
         
-        <!-- REEMPLAZA LOS NOMBRES DE LAS FOTOS AQUÍ ABAJO -->
         <div class="mural" id="mural-fotos">
             <div class="photo"><img src="./z1.jpeg"></div>
             <div class="photo"><img src="./z2.jpeg"></div>
@@ -194,10 +197,21 @@
         const audioPrev = document.getElementById('audio-previa');
         const audioHB = document.getElementById('audio-cumple');
 
-        // Función para asegurar que el audio suene (interacción obligatoria)
+        // Función corregida para forzar la activación de audio
         function iniciarExperiencia() {
-            // Desbloqueo de audio para navegadores móviles y GitHub
-            audioPrev.play().catch(e => console.log("Error de audio:", e));
+            // Desbloqueo de audio insistente para navegadores móviles y GitHub
+            audioPrev.play().then(() => {
+                console.log("Intro iniciada");
+            }).catch(e => {
+                console.log("Error de audio reintentando:", e);
+                audioPrev.play();
+            });
+
+            // "Despertamos" el segundo audio en silencio para ganar el permiso del navegador
+            audioHB.play().then(() => {
+                audioHB.pause();
+                audioHB.currentTime = 0;
+            }).catch(() => {});
             
             document.getElementById('intro-overlay').style.display = 'none';
             document.getElementById('gift-scene').style.display = 'flex';
